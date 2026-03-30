@@ -232,3 +232,6 @@ video{
   transform:translateY(0);
  }
 }
+#bloch, #bloch-mini {
+ min-height: 350px;
+}
