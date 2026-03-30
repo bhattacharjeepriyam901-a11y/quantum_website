@@ -210,7 +210,7 @@ canvas{
 .app-card img,
 video{
  width:100%;
- height:320px;
+ height:340px;
  object-fit:cover;
  border-radius:10px;
  margin-bottom:10px;
