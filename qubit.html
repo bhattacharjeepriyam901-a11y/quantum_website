@@ -3,7 +3,7 @@
 <head>
 <title>Qubits</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
 </head>
 <body>
 
@@ -38,6 +38,7 @@ This allows parallel computation — the basis of quantum computing.
 <a href="index.html" class="back">⬅ Back</a>
 
 <script>
+window.onload = function(){
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
 
@@ -94,6 +95,7 @@ function animate(){
  requestAnimationFrame(animate);
 }
 animate();
+}
 </script>
 
 </body>
