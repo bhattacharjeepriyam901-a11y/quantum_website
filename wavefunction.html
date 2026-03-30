@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Wavefunctions</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<h1 class="title-box">Wavefunctions & Probability</h1>
+
+<img class="main-img" src="wave.png">
+
+<div class="info-box">
+<p>
+The wavefunction ψ(x) describes the quantum state of a particle.
+<br><br>
+The probability of finding the particle is:
+<br><br>
+<b>|ψ(x)|²</b>
+<br><br>
+For n = 1 → highest probability at center  
+For n = 2 → zero probability at center  
+<br><br>
+This differs from classical physics, where particles are equally likely everywhere.
+</p>
+</div>
+
+<h2 class="subtitle">Probability Density Visualization</h2>
+
+<input type="range" min="1" max="5" value="1" id="nSlider">
+<p class="subtitle">n = <span id="nValue">1</span></p>
+
+<div class="glass-box">
+<canvas id="psiChart"></canvas>
+</div>
+
+<a href="index.html" class="back">⬅ Back</a>
+
+<script>
+const ctx = document.getElementById('psiChart').getContext('2d');
+
+let chart = new Chart(ctx, {
+ type: 'line',
+ data: {labels:[], datasets:[{data:[], borderColor:'#ffffff', pointRadius:0}]},
+ options:{
+  plugins:{legend:{display:false}},
+  scales:{
+   x:{ticks:{color:'#ccc'},grid:{color:'rgba(255,255,255,0.1)'}},
+   y:{ticks:{color:'#ccc'},grid:{color:'rgba(255,255,255,0.1)'}}
+  }
+ }
+});
+
+function update(n){
+ let x=[], y=[];
+ for(let i=0;i<200;i++){
+  let v=i/200;
+  let psi=Math.sin(n*Math.PI*v);
+  x.push(v);
+  y.push(psi*psi);
+ }
+ chart.data.labels=x;
+ chart.data.datasets[0].data=y;
+ chart.update();
+}
+
+update(1);
+
+nSlider.oninput=function(){
+ nValue.innerText=this.value;
+ update(this.value);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,234 @@
+/* RESET */
+*{
+ margin:0;
+ padding:0;
+ box-sizing:border-box;
+}
+
+/* FULL PAGE FIX */
+html, body {
+ height:100%;
+ width:100%;
+ overflow-x:hidden;
+}
+
+/* BODY */
+body{
+ font-family:Segoe UI;
+ text-align:center;
+ min-height:100vh;
+
+ background-image:url('https://images.unsplash.com/photo-1451187580459-43490279c0fa');
+ background-size:cover;
+ background-position:center;
+ background-repeat:no-repeat;
+ background-attachment:fixed;
+}
+
+/* DARK OVERLAY */
+body::before{
+ content:"";
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ background:rgba(0,0,0,0.6);
+ z-index:-1;
+}
+
+/* TITLE */
+.title-box{
+ display:inline-block;
+ padding:12px 30px;
+ border:2px solid rgba(255,255,255,0.6);
+ border-radius:12px;
+ color:#ffffff;
+ font-size:34px;
+ background:rgba(0,0,0,0.4);
+ margin-top:30px;
+ margin-bottom:10px;
+}
+
+/* SUBTITLE */
+.subtitle{
+ color:#ccc;
+ margin-top:10px;
+}
+
+/* LOGO */
+.logo-img{
+ width:700px;
+ max-width:95%;
+ margin:30px auto;
+ display:block;
+ border-radius:20px;
+ background:white;
+ padding:10px;
+ box-shadow:0 0 25px rgba(255,255,255,0.2);
+}
+
+/* GRID */
+.grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:20px;
+ padding:40px;
+}
+
+/* CARDS */
+.card{
+ background:rgba(255,255,255,0.15);
+ padding:40px;
+ border-radius:15px;
+ color:white;
+ text-decoration:none;
+ backdrop-filter:blur(10px);
+ transition:0.3s;
+}
+
+.card:hover{
+ transform:scale(1.05);
+}
+
+/* MAIN IMAGE */
+.main-img{
+ width:65%;
+ max-width:800px;
+ margin:30px auto;
+ display:block;
+ border-radius:15px;
+ transition:0.3s;
+}
+
+.main-img:hover{
+ transform:scale(1.03);
+}
+
+/* INFO BOX */
+.info-box{
+ width:70%;
+ max-width:900px;
+ margin:20px auto;
+ padding:20px;
+ background:rgba(255,255,255,0.1);
+ backdrop-filter:blur(10px);
+ border-radius:10px;
+ color:#ddd;
+ line-height:1.6;
+}
+
+/* GLASS BOX */
+.glass-box{
+ margin:30px auto;
+ padding:20px;
+ width:90%;
+ max-width:700px;
+ background:rgba(255,255,255,0.1);
+ backdrop-filter:blur(15px);
+ border-radius:15px;
+ animation:fadeIn 1s ease;
+
+ display:flex;
+ justify-content:center;
+ align-items:center;
+}
+
+/* GRAPH */
+canvas{
+ background:transparent;
+ max-width:100%;
+}
+
+/* BACK BUTTON */
+.back{
+ display:inline-block;
+ margin-top:20px;
+ padding:10px 20px;
+ background:rgba(255,255,255,0.2);
+ border-radius:10px;
+ color:white;
+ text-decoration:none;
+}
+
+/* BLOCH */
+#bloch{
+ margin:auto;
+ width:500px;
+ height:500px;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+}
+
+#bloch-mini{
+ margin:auto;
+ width:350px;
+ height:350px;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+}
+
+/* ========================= */
+/* APPLICATIONS (FINAL FIX) */
+/* ========================= */
+
+.app-grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:25px;
+ padding:40px;
+ align-items:stretch;
+}
+
+/* TALL CARDS (LIKE STM) */
+.app-card{
+ background:rgba(255,255,255,0.15);
+ padding:20px;
+ border-radius:15px;
+ backdrop-filter:blur(10px);
+ transition:0.3s;
+
+ display:flex;
+ flex-direction:column;
+ justify-content:flex-start;
+
+ min-height:550px;
+}
+
+.app-card:hover{
+ transform:scale(1.05);
+}
+
+/* IMAGE + VIDEO SAME SIZE */
+.app-card img,
+video{
+ width:100%;
+ height:320px;
+ object-fit:cover;
+ border-radius:10px;
+ margin-bottom:10px;
+}
+
+.app-card h3{
+ color:white;
+ margin-bottom:10px;
+}
+
+.app-card p{
+ color:#ddd;
+ line-height:1.5;
+}
+
+/* ANIMATION */
+@keyframes fadeIn{
+ from{
+  opacity:0;
+  transform:translateY(20px);
+ }
+ to{
+  opacity:1;
+  transform:translateY(0);
+ }
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bloch Sphere</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+
+<h1 class="title-box">Bloch Sphere</h1>
+
+
+
+<div class="info-box">
+<p>
+The Bloch sphere represents a qubit state geometrically.
+<br><br>
+The north pole corresponds to |0⟩ and the south pole to |1⟩.
+All other points represent superposition states.
+<br><br>
+Rotations on the sphere correspond to quantum operations.
+</p>
+</div>
+
+<div class="glass-box">
+<div id="bloch"></div>
+</div>
+
+<a href="index.html" class="back">⬅ Back</a>
+
+<script>
+
+// SCENE SETUP
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({alpha:true, antialias:true});
+
+renderer.setSize(500,500);
+renderer.domElement.style.display = "block";
+renderer.domElement.style.margin = "0 auto";
+
+document.getElementById('bloch').appendChild(renderer.domElement);
+
+// SPHERE
+const sphere = new THREE.Mesh(
+ new THREE.SphereGeometry(1,34,34),
+ new THREE.MeshBasicMaterial({wireframe:true,color:0xffffff})
+);
+scene.add(sphere);
+
+// ============================
+// ✅ IMPROVED AXES (THICKER + FIXED ORIGIN)
+// ============================
+
+// helper function to make slightly thicker-looking lines
+function createAxis(start, end, color){
+ const material = new THREE.LineBasicMaterial({
+  color: color,
+  transparent: true,
+  opacity: 0.8
+ });
+
+ const geometry = new THREE.BufferGeometry().setFromPoints([start, end]);
+ const line = new THREE.Line(geometry, material);
+
+ return line;
+}
+
+// X-axis (red)
+const xAxis = createAxis(
+ new THREE.Vector3(0,0,0),
+ new THREE.Vector3(1.4,0,0),
+ 0xff4d4d
+);
+scene.add(xAxis);
+
+// Y-axis (green)
+const yAxis = createAxis(
+ new THREE.Vector3(0,0,0),
+ new THREE.Vector3(0,1.4,0),
+ 0x4dff88
+);
+scene.add(yAxis);
+
+// Z-axis (blue)
+const zAxis = createAxis(
+ new THREE.Vector3(0,0,0),
+ new THREE.Vector3(0,0,1.4),
+ 0x4da6ff
+);
+scene.add(zAxis);
+// ============================
+// ✅ TILTED BLOCH VECTOR
+// ============================
+
+const dir = new THREE.Vector3(0.5, 0.75, 0.4).normalize();
+
+const arrow = new THREE.ArrowHelper(
+ dir,
+ new THREE.Vector3(0,0,0),
+ 1.2,
+ 0xff0000
+);
+
+// clean arrow tip
+arrow.setLength(1.2, 0.08, 0.04);
+
+scene.add(arrow);
+
+// CAMERA
+camera.position.z = 3;
+
+// DRAG ROTATION
+let drag = false;
+let prevX = 0;
+
+renderer.domElement.addEventListener('mousedown', e=>{
+ drag = true;
+ prevX = e.clientX;
+});
+
+window.addEventListener('mouseup', ()=> drag = false);
+
+window.addEventListener('mousemove', e=>{
+ if(drag){
+  let dx = e.clientX - prevX;
+  scene.rotation.y += dx * 0.01;
+  prevX = e.clientX;
+ }
+});
+
+// ANIMATION
+function animate(){
+ scene.rotation.y += 0.003;
+ renderer.render(scene, camera);
+ requestAnimationFrame(animate);
+}
+animate();
+
+</script>
+
+</body>
+</html>

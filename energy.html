@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Energy Levels</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h1 class="title-box">Energy Quantization</h1>
+
+<!-- FIXED IMAGE -->
+<img class="main-img" src="energy.png" alt="Energy Levels" onerror="this.style.display='none'">
+
+<div class="info-box">
+<p>
+Energy levels inside a box follow:
+<br><br>
+<b>Eₙ ∝ n²</b>
+<br><br>
+This means:
+- Energy increases rapidly as n increases
+- Energy levels are NOT equally spaced
+<br><br>
+This arises from boundary conditions:
+ψ(0) = 0 and ψ(L) = 0
+<br><br>
+This is a direct consequence of solving Schrödinger’s equation.
+</p>
+</div>
+
+<h2 class="subtitle">Energy vs Quantum Number</h2>
+
+<div class="glass-box">
+<canvas id="energyChart" width="600" height="350"></canvas>
+</div>
+
+<a href="index.html" class="back">⬅ Back</a>
+
+<script>
+const ctx = document.getElementById('energyChart').getContext('2d');
+
+let n = [1,2,3,4,5,6,7];
+let energy = n.map(x => x*x);
+
+new Chart(ctx, {
+ type: 'line',
+ data: {
+  labels: n,
+  datasets: [{
+   data: energy,
+   borderColor: '#ffffff',
+   borderWidth: 2,
+   pointBackgroundColor: '#ffffff',
+   pointRadius: 4
+  }]
+ },
+ options: {
+  animation: false,  // smoother rendering
+  plugins: { legend: { display: false } },
+  scales: {
+   x: {
+    title: { display: true, text: 'n', color: '#ccc' },
+    ticks: { color: '#ccc' },
+    grid: { color: 'rgba(255,255,255,0.1)' }
+   },
+   y: {
+    title: { display: true, text: 'Energy (E)', color: '#ccc' },
+    ticks: { color: '#ccc' },
+    grid: { color: 'rgba(255,255,255,0.1)' }
+   }
+  }
+ }
+});
+</script>
+
+</body>
+</html>

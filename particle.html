@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Particle in a Box</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h1 class="title-box">Particle in a Box</h1>
+
+<img class="main-img" src="particle.png">
+
+<div class="info-box">
+<p>
+A particle confined inside a box has quantized energy levels.
+The wavefunction depends on quantum number n.
+</p>
+</div>
+
+<h2 class="subtitle">Wavefunction Visualization</h2>
+
+<input type="range" min="1" max="7" value="1" id="nSlider">
+<p class="subtitle">n = <span id="nValue">1</span></p>
+
+<div class="glass-box">
+<canvas id="waveChart" width="600" height="350"></canvas>
+</div>
+
+<a href="index.html" class="back">⬅ Back</a>
+
+<script>
+const ctx=document.getElementById('waveChart').getContext('2d');
+
+let chart=new Chart(ctx,{
+ type:'line',
+ data:{labels:[],datasets:[{
+  data:[],
+  borderColor:'#ffffff',
+  borderWidth:2,
+  pointRadius:0
+ }]},
+ options:{
+  plugins:{legend:{display:false}},
+  scales:{
+   x:{ticks:{color:'#ccc'},grid:{color:'rgba(255,255,255,0.1)'}},
+   y:{ticks:{color:'#ccc'},grid:{color:'rgba(255,255,255,0.1)'}}
+  }
+ }
+});
+
+function update(n){
+ let x=[],y=[];
+ for(let i=0;i<200;i++){
+  let v=i/200;
+  x.push(v);
+  y.push(Math.sin(n*Math.PI*v));
+ }
+ chart.data.labels=x;
+ chart.data.datasets[0].data=y;
+ chart.update();
+}
+
+update(1);
+
+nSlider.oninput=function(){
+ nValue.innerText=this.value;
+ update(this.value);
+}
+</script>
+
+</body>
+</html>

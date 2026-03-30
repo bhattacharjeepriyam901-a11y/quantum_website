@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Time Evolution</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h1 class="title-box">Time Evolution</h1>
+
+<!-- FIXED IMAGE -->
+<img class="main-img" src="time.png" alt="Time Evolution" onerror="this.style.display='none'">
+
+<div class="info-box">
+<p>
+Superposition of quantum states leads to time-dependent probability changes.
+</p>
+</div>
+
+<div class="glass-box">
+<canvas id="timeChart" width="600" height="350"></canvas>
+</div>
+
+<a href="index.html" class="back">⬅ Back</a>
+
+<script>
+const ctx=document.getElementById('timeChart').getContext('2d');
+
+let chart=new Chart(ctx,{
+ type:'line',
+ data:{labels:[],datasets:[{
+  data:[],
+  borderColor:'#ffffff',
+  borderWidth:2,
+  pointRadius:0
+ }]},
+ options:{
+  plugins:{legend:{display:false}},
+  animation:false,   // ✅ prevents lag/flicker
+  scales:{
+   x:{ticks:{color:'#ccc'},grid:{color:'rgba(255,255,255,0.1)'}},
+   y:{ticks:{color:'#ccc'},grid:{color:'rgba(255,255,255,0.1)'}}
+  }
+ }
+});
+
+let t=0;
+
+function animate(){
+ let x=[],y=[];
+ for(let i=0;i<200;i++){
+  let v=i/200;
+  let psi=Math.sin(Math.PI*v)*Math.cos(t)
+           +Math.sin(2*Math.PI*v)*Math.sin(t);
+  x.push(v);
+  y.push(psi*psi);
+ }
+
+ chart.data.labels=x;
+ chart.data.datasets[0].data=y;
+ chart.update();
+
+ t+=0.05;
+ requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>

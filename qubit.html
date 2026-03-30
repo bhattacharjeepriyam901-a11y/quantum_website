@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Qubits</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+<h1 class="title-box">From Particle to Qubit</h1>
+
+<!-- FIXED IMAGE -->
+<img class="main-img" src="qubit.png" alt="Qubit Representation" onerror="this.style.display='none'">
+
+<div class="info-box">
+<p>
+A qubit is formed using two quantum states:
+<br><br>
+|0⟩ = ground state (n=1)  
+|1⟩ = excited state (n=2)
+<br><br>
+A general state:
+<br><br>
+<b>|ψ⟩ = a|0⟩ + b|1⟩</b>
+<br><br>
+Unlike classical bits, qubits exist in superposition.
+<br><br>
+This allows parallel computation — the basis of quantum computing.
+</p>
+</div>
+
+<h2 class="subtitle">Qubit Representation (Bloch Sphere)</h2>
+
+<div class="glass-box">
+<div id="bloch-mini"></div>
+</div>
+
+<a href="index.html" class="back">⬅ Back</a>
+
+<script>
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+
+const renderer = new THREE.WebGLRenderer({alpha:true, antialias:true});
+renderer.setSize(350, 350);
+
+renderer.domElement.style.display = "block";
+renderer.domElement.style.margin = "0 auto";
+
+document.getElementById('bloch-mini').appendChild(renderer.domElement);
+// Sphere
+const sphere = new THREE.Mesh(
+ new THREE.SphereGeometry(1, 34, 34),
+ new THREE.MeshBasicMaterial({wireframe:true,color:0xffffff})
+);
+scene.add(sphere);
+
+// Qubit vector (red)
+// Bloch vector (proper arrow)
+const direction = new THREE.Vector3(0, 1, 0); // pointing up
+const origin = new THREE.Vector3(0, 0, 0);
+const length = 1.3;
+
+const arrow = new THREE.ArrowHelper(direction, origin, length, 0xff0000);
+
+// better proportions (shaft, head length, head width)
+arrow.setLength(1.2, 0.14, 0.07);
+arrow.setDirection(new THREE.Vector3(0.3, 0.9, 0).normalize());
+scene.add(arrow);
+camera.position.z = 3;
+
+// Drag control
+let mouseDown = false, prevX = 0;
+
+renderer.domElement.addEventListener('mousedown', e=>{
+ mouseDown = true;
+ prevX = e.clientX;
+});
+
+window.addEventListener('mouseup', ()=> mouseDown = false);
+
+window.addEventListener('mousemove', e=>{
+ if(mouseDown){
+  let dx = e.clientX - prevX;
+  scene.rotation.y += dx * 0.01;
+  prevX = e.clientX;
+ }
+});
+
+// Animation
+function animate(){
+ scene.rotation.y += 0.004;
+ renderer.render(scene, camera);
+ requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
