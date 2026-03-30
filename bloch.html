@@ -3,7 +3,7 @@
 <head>
 <title>Bloch Sphere</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
 </head>
 
 <body>
@@ -30,7 +30,7 @@ Rotations on the sphere correspond to quantum operations.
 <a href="index.html" class="back">⬅ Back</a>
 
 <script>
-
+window.onload = function(){
 // SCENE SETUP
 const scene = new THREE.Scene();
 
@@ -138,7 +138,7 @@ function animate(){
  requestAnimationFrame(animate);
 }
 animate();
-
+}
 </script>
 
 </body>
